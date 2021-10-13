@@ -44,7 +44,7 @@ namespace BattleCrusaders.Movement
             {
                 Move();
 
-                if(Input.GetButtonDown("Jump"))
+                if(Input.GetKeyDown(KeyCode.Space))
                 {
                     Jump();
                 }
