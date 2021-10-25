@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Bean Battle!/Scenes/KieranTesting/Offline.unity
+    guid: 39aab06ee84bf4e4cae5b206ed139da9
+  - enabled: 1
+    path: Assets/Bean Battle!/Scenes/KieranTesting/Online.unity
+    guid: a638763e41de0444188667d65d310cae
   m_configObjects: {}
