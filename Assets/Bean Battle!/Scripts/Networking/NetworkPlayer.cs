@@ -9,6 +9,7 @@ namespace Beanbattle.Networking
     [RequireComponent(typeof(PlayerController))]
     public class NetworkPlayer : NetworkBehaviour
     {
+        
         // This is run via the network starting and the player connecting...
         // NOT Unity
         // It is run when the object is spawned via the networking system NOT when Unity
