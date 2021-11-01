@@ -600,13 +600,13 @@ MonoBehaviour:
   onlineScene: Assets/Bean Battle!/Scenes/Online.unity
   transport: {fileID: 736557917}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 2
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 4111538750054531997, guid: b077fe3dbffe499418bd337ea48683b9, type: 3}
   autoCreatePlayer: 1
-  playerSpawnMethod: 0
+  playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 3973952003576166320, guid: 5bd616c67897cbb4b9a1412ce44993b7, type: 3}
   discovery: {fileID: 736557920}
