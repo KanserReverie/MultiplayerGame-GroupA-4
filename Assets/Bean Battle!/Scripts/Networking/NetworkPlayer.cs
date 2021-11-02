@@ -10,21 +10,6 @@ namespace Beanbattle.Networking
 		[SerializeField] private GameObject enemyToSpawn;
 		// This will mean it will now be syned when any player starts because the color is a "Sync Var". 
 		[SyncVar(hook = nameof(OnSetColor)), SerializeField] private Color cubeColor;
-
-		[SerializeField] private SyncList<float> syncedFloats = new SyncList<float>();
-		
-		// SyncVarHooks get called in the order the VARIABLES are defined not the functions
-		// [SyncVar(hook = "SetX")] public float x;
-		// [SyncVar(hook = "SetY")] public float y;
-		// [SyncVar(hook = "SetZ")] public float z;
-		//
-		// [Command]
-		// public void CmdSetPosition(float _x, float _y, float _z)
-		// {
-		//     z = _z;
-		//     x = _x;
-		//     y = _y;
-		// }
 		
 		private Material cachedMaterial;
 		private void OnSetColor(Color _old, Color _new)
@@ -37,33 +22,27 @@ namespace Beanbattle.Networking
 			cachedMaterial.color = _new;
 		}
 		
-		private void Awake()
-		{
-			
-			// This will run REGARDLESS if we are the local or remote player.
-		}
-
 		private void Update()
 		{
 			// First determine if this function is being run on the local player.
-			if(isLocalPlayer)
-			{
-				if(Input.GetKeyDown(KeyCode.Space))
-				{
-					// Run a function that tells every client to change the colour of this gameObject.
-					// The "Random" part is done on the client.
-					CmdRandomColorOnClient(Random.Range(0f,1f));
-				}
-				if(Input.GetKeyDown(KeyCode.Z))
-				{
-					// Run a function that tells every client to change the colour of this gameObject.
-					CmdRandomColorOnServer();
-				}
-				if(Input.GetKeyDown(KeyCode.E))
-				{
-					CmdSpawnEnemy();
-				}
-			}
+			//if(isLocalPlayer)
+			//{
+			//	if(Input.GetKeyDown(KeyCode.Space))
+			//	{
+			//		// Run a function that tells every client to change the colour of this gameObject.
+			//		// The "Random" part is done on the client.
+			//		CmdRandomColorOnClient(Random.Range(0f,1f));
+			//	}
+			//	if(Input.GetKeyDown(KeyCode.Z))
+			//	{
+			//		// Run a function that tells every client to change the colour of this gameObject.
+			//		CmdRandomColorOnServer();
+			//	}
+			//	if(Input.GetKeyDown(KeyCode.E))
+			//	{
+			//		CmdSpawnEnemy();
+			//	}
+			//}
 		}
 
 		[Command] public void CmdSpawnEnemy()
@@ -138,17 +117,6 @@ namespace Beanbattle.Networking
 		public override void OnStopClient()
 		{
 			CustomNetworkManager.RemovePlayer(this);
-		}
-		
-		// This runs when the server starts... ON the server.
-		// In the case of a Host-Client situation,
-		// this only runs when the HOST launches because the host is the server.
-		public override void OnStartServer()
-		{
-			for(int i = 0; i < 10; i++)
-			{
-				syncedFloats.Add(Random.Range(0,10));
-			}
 		}
 	}
 }

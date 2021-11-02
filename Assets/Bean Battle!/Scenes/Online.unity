@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 13690463}
   - component: {fileID: 13690462}
   - component: {fileID: 13690461}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Floor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,7 +746,7 @@ Transform:
   - {fileID: 1349646997}
   - {fileID: 1604084793}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &905750315
 GameObject:
@@ -837,7 +837,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-66716
+  m_Name: pb_Mesh18800
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1004,7 +1004,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1079069631}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GameStage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1022,12 +1022,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1356702442}
   - {fileID: 1463303809}
   - {fileID: 1152218558}
   - {fileID: 2021863487}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1102539088
 GameObject:
@@ -1042,7 +1041,7 @@ GameObject:
   - component: {fileID: 1102539092}
   - component: {fileID: 1102539091}
   - component: {fileID: 1102539090}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1416,7 +1415,7 @@ GameObject:
   - component: {fileID: 1149564741}
   - component: {fileID: 1149564740}
   - component: {fileID: 1149564739}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Red Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1729,7 +1728,7 @@ GameObject:
   - component: {fileID: 1152218561}
   - component: {fileID: 1152218560}
   - component: {fileID: 1152218559}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: RightSide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1748,7 +1747,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1079069631}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1152218559
 MeshCollider:
@@ -2128,7 +2127,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-67272
+  m_Name: pb_Mesh18862
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2292,7 +2291,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-89660
+  m_Name: pb_Mesh18726
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2630,8 +2629,8 @@ Transform:
   - {fileID: 468159974}
   - {fileID: 1593478710}
   - {fileID: 481819225}
-  m_Father: {fileID: 1079069631}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1403974962
 Mesh:
@@ -2639,7 +2638,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-94152
+  m_Name: pb_Mesh18788
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2806,7 +2805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1463303809}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2828,7 +2827,7 @@ Transform:
   - {fileID: 13690460}
   - {fileID: 1149564738}
   m_Father: {fileID: 1079069631}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1520511004
 GameObject:
@@ -3072,7 +3071,7 @@ GameObject:
   - component: {fileID: 2021863490}
   - component: {fileID: 2021863489}
   - component: {fileID: 2021863488}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: LeftSide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3091,7 +3090,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1079069631}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &2021863488
 MeshCollider:
@@ -3378,7 +3377,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-41112
+  m_Name: pb_Mesh18774
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
