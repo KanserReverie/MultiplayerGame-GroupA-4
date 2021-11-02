@@ -22,6 +22,7 @@ namespace Beanbattle.Player
         public void Awake()
         {
             myRigidBody = GetComponent<Rigidbody>();
+            isGrounded = true;
         }
 
         // Update is called once per frame
@@ -85,19 +86,19 @@ namespace Beanbattle.Player
         {
             RaycastHit hit;
             float distance = 1.3f;
-            Vector3 dir = new Vector3(0, -1);
-
+            
             Vector3 down = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z); 
             
             int layerMask = LayerMask.GetMask($"NormalObjects");
             
-            isGrounded = Physics.Raycast(transform.position, down, out hit, distance,~layerMask);
+            //isGrounded = Physics.Raycast(transform.position, down, out hit, distance,~layerMask);
+            isGrounded = Physics.Raycast(transform.position, down, out hit, distance);
             Debug.DrawLine(transform.position, down, Color.cyan,1.3f);
+            isGrounded = true;
         }
         /// <summary> This lets the player jump even if they fall off the platform </summary>
         void CheckIfGrounded()
         {
-
             if(isGrounded && !jumpingNow)
             {
                 additionalJumps = defaultAdditionalJumps;
