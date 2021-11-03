@@ -16,6 +16,7 @@ namespace Beanbattle.Player
         [SerializeField] private int defaultAdditionalJumps = 1;
         [SerializeField] private float speed = 2f;
         private float lastTimeGrounded;
+        
         private int additionalJumps;
         private bool jumpingNow = false;
         
@@ -30,14 +31,15 @@ namespace Beanbattle.Player
         {
             Move();
 
-            if(Input.GetButtonDown("Jump"))
+            if(IsGrounded() && Input.GetButtonDown("Jump"))
             {
                 Jump();
             }
-            
+
+            IsGrounded();
             BetterJump();
             CheckIfGrounded();
-            GroundCheck();
+            //GroundCheck();
 
             // Old code.
             // myRigidBody.velocity += transform.right * Time.deltaTime * speed * Input.GetAxis("Horizontal");
@@ -82,20 +84,38 @@ namespace Beanbattle.Player
         }
         
         /// <summary> Check if the player is touching the ground </summary>
-        void GroundCheck()
+        private void GroundCheck()
         {
             RaycastHit hit;
             float distance = 1.3f;
             
             Vector3 down = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z); 
             
-            int layerMask = LayerMask.GetMask($"NormalObjects");
-            
             //isGrounded = Physics.Raycast(transform.position, down, out hit, distance,~layerMask);
             isGrounded = Physics.Raycast(transform.position, down, out hit, distance);
-            Debug.DrawLine(transform.position, down, Color.cyan,1.3f);
-            isGrounded = true;
+            // Debug.DrawLine(transform.position, down, Color.cyan,1.3f);
+
+            if(isGrounded)
+            {
+                print("grounded");
+            }
+            else
+            {
+                print("ground not hit and away by - " + hit.distance);
+            }
         }
+        
+        private bool IsGrounded()
+        {
+            bool raycastHit = Physics.Raycast(transform.position, Vector3.down, 1.1f);
+            Color rayColor;
+
+            rayColor = raycastHit ? Color.green : Color.red;
+            
+            Debug.DrawRay(transform.position, Vector3.down * 1.1f);
+            return raycastHit;
+        }
+        
         /// <summary> This lets the player jump even if they fall off the platform </summary>
         void CheckIfGrounded()
         {
