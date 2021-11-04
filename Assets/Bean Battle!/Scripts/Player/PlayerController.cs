@@ -12,8 +12,8 @@ namespace Beanbattle.Player
         // This if for if the player is touching the ground.
         [SerializeField] private bool isGrounded = false;
         [SerializeField] private bool leftground = false;
-        [SerializeField] private float rememberGroundedFor;
-        [SerializeField] private int defaultAdditionalJumps = 1;
+        [SerializeField] private float rememberGroundedFor = 1f;
+        [SerializeField] private int defaultAdditionalJumps = 3;
         [SerializeField] private float speed = 2f;
         private float lastTimeGrounded;
         
@@ -31,7 +31,7 @@ namespace Beanbattle.Player
         {
             Move();
 
-            if(IsGrounded() && Input.GetButtonDown("Jump"))
+            if(Input.GetButtonDown("Jump"))
             {
                 Jump();
             }
@@ -45,6 +45,7 @@ namespace Beanbattle.Player
         /// <summary> Jumping isn't good for dogs, but you can have the rest of my milk. </summary>
         private void Jump()
         {
+            Debug.Log($"isGrounded = {isGrounded} || Time.time - lastTimeGrounded = {Time.time - lastTimeGrounded} (needs to be <=) {rememberGroundedFor} && aditionalJumps = {additionalJumps}");
             if((isGrounded || Time.time - lastTimeGrounded <= rememberGroundedFor) && additionalJumps >= 0)
             {
                 myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, jumpForce);
@@ -79,17 +80,40 @@ namespace Beanbattle.Player
                 myRigidBody.velocity += new Vector3(HoriVerti2.x, HoriVerti2.y, 0);
             }
         }
-        
-        
+
+        private void FixedUpdate()
+        {
+            isGrounded = false;
+        }
+
         /// <summary>
         /// detects if player is touching the ground. if so, resets players maxJumps count.
         /// </summary>
         /// <param name="other">object of player</param>
-        private void OnCollisionEnter(Collision other)
+        private void OnCollisionStay(Collision other)
         {
             if(other.gameObject.CompareTag($"Ground"))
             {
                 isGrounded = true;
+            }
+        }
+        
+        /// <summary> This lets the player jump even if they fall off the platform </summary>
+        private void CheckIfGrounded()
+        {
+            if(isGrounded && !jumpingNow)
+            {
+                additionalJumps = defaultAdditionalJumps;
+                leftground = false;
+            }
+            else
+            {
+                if(!leftground)
+                {
+                    lastTimeGrounded = Time.time;
+                }
+                leftground = true;
+                isGrounded = false;
             }
         }
         
@@ -130,26 +154,6 @@ namespace Beanbattle.Player
             
             Debug.DrawRay(transform.position, Vector3.down * 1.1f);
             return raycastHit;
-        }
-        
-        /// <summary> This lets the player jump even if they fall off the platform </summary>
-        private void CheckIfGrounded()
-        {
-            if(isGrounded && !jumpingNow)
-            {
-                additionalJumps = defaultAdditionalJumps;
-                leftground = false;
-            }
-            else
-            {
-                if(!leftground)
-                {
-                    lastTimeGrounded = Time.time;
-                }
-
-                leftground = true;
-                isGrounded = false;
-            }
         }
     #endregion
         

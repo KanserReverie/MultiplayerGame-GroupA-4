@@ -147,14 +147,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3a51fb10f8a654bb6358224efdb5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 7
+  jumpForce: 11
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   isGrounded: 0
   leftground: 0
-  rememberGroundedFor: 0
-  defaultAdditionalJumps: 1
-  speed: 2
+  rememberGroundedFor: 1
+  defaultAdditionalJumps: 3
+  speed: 5
 --- !u!114 &8157707512377745137
 MonoBehaviour:
   m_ObjectHideFlags: 0
