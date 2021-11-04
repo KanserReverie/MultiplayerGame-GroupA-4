@@ -36,13 +36,10 @@ namespace Beanbattle.Player
                 Jump();
             }
 
-            IsGrounded();
             BetterJump();
             CheckIfGrounded();
+            //IsGrounded();
             //GroundCheck();
-
-            // Old code.
-            // myRigidBody.velocity += transform.right * Time.deltaTime * speed * Input.GetAxis("Horizontal");
         }
 
         /// <summary> Jumping isn't good for dogs, but you can have the rest of my milk. </summary>
@@ -83,7 +80,22 @@ namespace Beanbattle.Player
             }
         }
         
-        /// <summary> Check if the player is touching the ground </summary>
+        
+        /// <summary>
+        /// detects if player is touching the ground. if so, resets players maxJumps count.
+        /// </summary>
+        /// <param name="other">object of player</param>
+        private void OnCollisionEnter(Collision other)
+        {
+            if(other.gameObject.CompareTag($"Ground"))
+            {
+                isGrounded = true;
+            }
+        }
+        
+    #region Not Working Ground Checks
+
+        /// <summary> Should be checking if the player is touching the ground </summary>
         private void GroundCheck()
         {
             RaycastHit hit;
@@ -105,6 +117,10 @@ namespace Beanbattle.Player
             }
         }
         
+        /// <summary>
+        /// Raycast ground check from the middle not working.
+        /// </summary>
+        /// <returns> Should return true IF you are on the ground. </returns>
         private bool IsGrounded()
         {
             bool raycastHit = Physics.Raycast(transform.position, Vector3.down, 1.1f);
@@ -117,7 +133,7 @@ namespace Beanbattle.Player
         }
         
         /// <summary> This lets the player jump even if they fall off the platform </summary>
-        void CheckIfGrounded()
+        private void CheckIfGrounded()
         {
             if(isGrounded && !jumpingNow)
             {
@@ -135,5 +151,7 @@ namespace Beanbattle.Player
                 isGrounded = false;
             }
         }
+    #endregion
+        
     }
 }
