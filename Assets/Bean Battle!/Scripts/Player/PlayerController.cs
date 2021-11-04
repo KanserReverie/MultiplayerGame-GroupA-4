@@ -1,3 +1,4 @@
+using Beanbattle.Spawn;
 using System;
 using UnityEngine;
 
@@ -110,6 +111,10 @@ namespace Beanbattle.Player
         private void PlayerDeath()
         {
             print("PlayerDeath");
+            
+            // This will reset the scene
+                // aka
+            SpawnManager.Instance.PlayerDeath();
         }
 
         /// <summary> This lets the player jump even if they fall off the platform </summary>
