@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 namespace Beanbattle.Spawn
 {
-    public class SpawnManager : MonoBehaviour
+    public class SpawnManager : NetworkBehaviour
     {
         // Its now a singleton
     #region Singleton Code
@@ -48,12 +49,6 @@ namespace Beanbattle.Spawn
         {
             // Delete all other Game Objects in Scene.
             // Spawn players at spawn points (or just move them to points)
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
         }
     }
 }

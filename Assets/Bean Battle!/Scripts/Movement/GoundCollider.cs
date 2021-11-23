@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using Mirror;
 
 namespace BattleCrusaders.Movement
 {
-    public class GoundCollider : MonoBehaviour
+    public class GoundCollider : NetworkBehaviour
     {
         // This is the controller that will move the player
         private PlayerControlsManager myplayerControlsManager;
@@ -16,6 +13,10 @@ namespace BattleCrusaders.Movement
             => myplayerControlsManager = _newPlayerControlsManager;
         public void Update()
         {
+            // If we are not the main client dont run this method.
+            if(!isLocalPlayer)
+                return;
+            
             GroundCheck();
         }
         

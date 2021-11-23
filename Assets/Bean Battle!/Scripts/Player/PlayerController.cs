@@ -1,10 +1,11 @@
 using Beanbattle.Spawn;
 using System;
 using UnityEngine;
+using Mirror;
 
 namespace Beanbattle.Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : NetworkBehaviour
     {
         private Rigidbody myRigidBody;
         [SerializeField] private float jumpForce = 4;
@@ -20,33 +21,55 @@ namespace Beanbattle.Player
         
         private int additionalJumps;
         private bool jumpingNow = false;
+        private bool turnedOn = false;
         
         public void Awake()
         {
-            myRigidBody = GetComponent<Rigidbody>();
-            isGrounded = true;
+            // If we are not the main client dont run this method.
+            // if(!isLocalPlayer)
+            //     return;
+            
+            Invoke(nameof(TurnOnPlayer), 1f);
+            
+            // myRigidBody = GetComponent<Rigidbody>();
+            // isGrounded = true;
+        }
+
+        /// <summary> Take a second to turn on the player </summary>
+        private void TurnOnPlayer()
+        {
+            if(isLocalPlayer)
+            {
+                myRigidBody = GetComponent<Rigidbody>();
+                isGrounded = true;
+                turnedOn = true;
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
-            Move();
-
-            if(Input.GetButtonDown("Jump"))
+            // If we are not the main client dont run this method.
+            if(isLocalPlayer && turnedOn)
             {
-                Jump();
-            }
+                Move();
 
-            BetterJump();
-            CheckIfGrounded();
-            //IsGrounded();
-            //GroundCheck();
+                if(Input.GetButtonDown("Jump"))
+                {
+                    Jump();
+                }
+
+                BetterJump();
+                CheckIfGrounded();
+                //IsGrounded();
+                //GroundCheck();
+            }
         }
 
         /// <summary> Jumping isn't good for dogs, but you can have the rest of my milk. </summary>
         private void Jump()
         {
-            Debug.Log($"isGrounded = {isGrounded} || Time.time - lastTimeGrounded = {Time.time - lastTimeGrounded} (needs to be <=) {rememberGroundedFor} && aditionalJumps = {additionalJumps}");
+            Debug.Log($"isGrounded = {isGrounded} || Time.time - lastTimeGrounded = {Time.time - lastTimeGrounded} (needs to be <=) {rememberGroundedFor} && additionalJumps = {additionalJumps}");
             if((isGrounded || Time.time - lastTimeGrounded <= rememberGroundedFor) || additionalJumps >= 0)
             {
                 myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, jumpForce);
@@ -82,7 +105,9 @@ namespace Beanbattle.Player
 
         private void FixedUpdate()
         {
-            isGrounded = false;
+            // If we are not the main client dont run this method.
+            if(isLocalPlayer && turnedOn)
+                isGrounded = false;
         }
 
         /// <summary>
@@ -91,6 +116,10 @@ namespace Beanbattle.Player
         /// <param name="other">object of player</param>
         private void OnCollisionStay(Collision other)
         {
+            // If we are not the main client dont run this method.
+            if(!isLocalPlayer)
+                return;
+            
             if(other.gameObject.CompareTag($"Ground"))
             {
                 isGrounded = true;
@@ -102,6 +131,10 @@ namespace Beanbattle.Player
         /// <param name="other">object of player</param>
         private void OnCollisionEnter(Collision other)
         {
+            // If we are not the main client dont run this method.
+            if(!isLocalPlayer)
+                return;
+            
             if(other.gameObject.CompareTag($"DeathObject"))
             {
                 PlayerDeath();
@@ -110,6 +143,10 @@ namespace Beanbattle.Player
 
         private void PlayerDeath()
         {
+            // If we are not the main client dont run this method.
+            if(!isLocalPlayer)
+                return;
+            
             print("PlayerDeath");
             
             // This will reset the scene

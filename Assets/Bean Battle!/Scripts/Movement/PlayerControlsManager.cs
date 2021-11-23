@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using Mirror;
 
 namespace BattleCrusaders.Movement
 {
-    public class PlayerControlsManager : MonoBehaviour
+    public class PlayerControlsManager : NetworkBehaviour
     {
         private Rigidbody myRigidbody;
         [Tooltip("The players movement speed")] public float speed = 2;
@@ -25,6 +26,10 @@ namespace BattleCrusaders.Movement
 
         private void Awake()
         {
+            // If we are not the main client dont run this method.
+            if(!isLocalPlayer)
+                return;
+            
             // Ok this will set the grounded controller.
             GoundCollider _groundCollider = GetComponentInChildren<GoundCollider>();
             _groundCollider.SetPlayerContoller(this);
@@ -35,11 +40,19 @@ namespace BattleCrusaders.Movement
 
         void Start()
         {
+            // If we are not the main client dont run this method.
+            if(!isLocalPlayer)
+                return;
+            
             additionalJumps = defaultAdditionalJumps;
         }
 
         void Update()
         {
+            // If we are not the main client dont run this method.
+            if(!isLocalPlayer)
+                return;
+
             if(isReady)
             {
                 Move();
