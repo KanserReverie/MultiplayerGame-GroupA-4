@@ -160,10 +160,15 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   gameObjectsToThrow:
   - {fileID: 6185948502332180732, guid: 94ba65c1936260d4f94c0394593e4ef7, type: 3}
-  rightThrowPoint: {x: 0, y: 0, z: 0}
-  rightThrowRotation: {x: 0, y: 0, z: 0, w: 0}
-  gun: {fileID: 0}
+  throwPointVector3: {x: 1, y: 1.3, z: 0}
+  rightThrowRotation: {x: 1, y: 0, z: 0, w: 0}
+  leftThrowRotation: {x: 0, y: 0, z: -1, w: 0}
+  myForce: 5
+  rightThrow: 275
+  leftThrow: 276
   canMove: 1
+  spawnPoints: []
+  lockCursor: 0
 --- !u!114 &4872570827296345596
 MonoBehaviour:
   m_ObjectHideFlags: 0

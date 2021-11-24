@@ -8,6 +8,9 @@ namespace NetworkGame
 	{
 		// Just makes this enemy move forward. 
 		// Will be changed to a box.
-		private void Update() => transform.position += transform.forward * Time.deltaTime * 5f;
+		private void Update()
+		{
+			transform.position += transform.forward * Time.deltaTime * 5f;
+		}
 	}
 }
