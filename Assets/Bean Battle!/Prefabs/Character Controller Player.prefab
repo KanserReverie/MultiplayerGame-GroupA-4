@@ -156,6 +156,13 @@ MonoBehaviour:
   lookSpeed: 2
   lookXLimit: 45
   extraJumpsCount: 2
+  characterController: {fileID: 0}
+  moveDirection: {x: 0, y: 0, z: 0}
+  gameObjectsToThrow:
+  - {fileID: 6185948502332180732, guid: 94ba65c1936260d4f94c0394593e4ef7, type: 3}
+  rightThrowPoint: {x: 0, y: 0, z: 0}
+  rightThrowRotation: {x: 0, y: 0, z: 0, w: 0}
+  gun: {fileID: 0}
   canMove: 1
 --- !u!114 &4872570827296345596
 MonoBehaviour:

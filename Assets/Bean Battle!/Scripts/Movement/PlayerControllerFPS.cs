@@ -8,18 +8,26 @@ namespace BattleCrusaders.Movement
     [RequireComponent(typeof(CharacterController))] 
     public class PlayerControllerFPS : NetworkBehaviour
     {
-        public float walkingSpeed = 7.5f;
-        public float runningSpeed = 11.5f;
-        public float jumpSpeed = 8.0f;
-        public float gravity = 20.0f;
-        public float lookSpeed = 2.0f;
-        public float lookXLimit = 45.0f;
-        public int extraJumpsCount = 2;
+        [SerializeField] private float walkingSpeed = 7.5f;
+        [SerializeField] private  float runningSpeed = 11.5f;
+        [SerializeField] private float jumpSpeed = 8.0f;
+        [SerializeField] private float gravity = 20.0f;
+        [SerializeField] private float lookSpeed = 2.0f;
+        [SerializeField] private float lookXLimit = 45.0f;
+        [SerializeField] private int extraJumpsCount = 2;
         private int extraJumps = 2;
-        private CharacterController characterController;
-        private Vector3 moveDirection = Vector3.zero;
+        [SerializeField] private CharacterController characterController;
+        [SerializeField] private Vector3 moveDirection = Vector3.zero;
+        
+        [Header("Time to throw a thing")]
+        [SerializeField] private GameObject[] gameObjectsToThrow;
+        [SerializeField] private Vector3 rightThrowPoint;
+        [SerializeField] private Quaternion rightThrowRotation;
+        [SerializeField] private GameObject gun;
 
         [HideInInspector] public bool canMove = true;
+        private float zPosition = 0f;
+        private Vector3 movementOffSet;
 
         void Start()
         {
@@ -35,6 +43,16 @@ namespace BattleCrusaders.Movement
             // If we are not the main client dont run this method.
             if (!isLocalPlayer)
                 return;
+
+            // This should fix the player from moving on the z direction.
+            if(transform.position.z != zPosition)
+                movementOffSet.z = (zPosition - transform.position.z) * 0.05f;
+            characterController.Move (movementOffSet);
+            
+            if(Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                CmdThrow(rightThrowPoint, rightThrowRotation*Quaternion.LookRotation(rightThrowPoint), rightThrowPoint);
+            }
             
             // We are grounded, so recalculate move direction based on axes
             //Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -69,6 +87,12 @@ namespace BattleCrusaders.Movement
 
             // Move the controller
             characterController.Move(moveDirection * Time.deltaTime);
+        }
+
+        [Command]
+        private void CmdThrow(Vector3 _position, Quaternion _rotation, Vector3 _forward)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
