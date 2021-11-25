@@ -36,7 +36,7 @@ namespace BattleCrusaders.Movement
 
         [Header("UI")] 
         [SerializeField] private bool lockCursor = false;
-        [SerializeField] private bool resetTransform000;
+        [SerializeField] private bool resetTransform000 = true;
         
         private float zPosition = 0f;
         private Vector3 movementOffSet;
@@ -103,13 +103,13 @@ namespace BattleCrusaders.Movement
             // as an acceleration (ms^-2)
             if(!characterController.isGrounded)
                 moveDirection.y -= gravity * Time.deltaTime;
-            
+
             // Move the controller
             characterController.Move(moveDirection * Time.deltaTime);
         #endregion
         }
         
-        private void OnCollisionStay(Collision _collision)
+        private void OnControllerColliderHit(ControllerColliderHit _collision)
         {
             if(!isLocalPlayer)
                 return;
@@ -141,10 +141,13 @@ namespace BattleCrusaders.Movement
         [Command]
         private void CmdResetPosition(Vector3 _position, Quaternion _rotation)
         {
+            characterController.enabled = false;
             print("Position = " + transform.position + "Rotation = " + transform.rotation);
             gameObject.transform.position = _position;
             gameObject.transform.rotation = _rotation;
             print("Position = " + transform.position + "Rotation = " + transform.rotation);
+            characterController.enabled = true;
+            moveDirection = new Vector3(0, 0, 0);
         }
         // ^^^Might need to add back ^^^
         // [ClientRpc]

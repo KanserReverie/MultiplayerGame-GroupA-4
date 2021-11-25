@@ -1,7 +1,6 @@
 using BattleCrusaders.Movement;
 using UnityEngine;
 using Mirror;
-using Beanbattle.Player;
 
 namespace Beanbattle.Networking
 {
@@ -109,7 +108,7 @@ namespace Beanbattle.Networking
 		{
 			// This will run REGARDLESS if we are the local or remote player.
 			// (isLocalPlayer) is true if this object is the client's local player otherwise it's false.
-			PlayerController Controller = gameObject.GetComponent<PlayerController>();
+			PlayerControllerFPS Controller = gameObject.GetComponent<PlayerControllerFPS>();
 			Controller.enabled = isLocalPlayer;
 
 			CustomNetworkManager.AddPlayer(this);
