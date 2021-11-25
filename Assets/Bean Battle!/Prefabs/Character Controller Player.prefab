@@ -141,9 +141,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  walkingSpeed: 7.5
-  runningSpeed: 11.5
-  jumpSpeed: 11
+  walkingSpeed: 10
+  runningSpeed: 10
+  jumpSpeed: 14
   gravity: 30
   extraJumpsMax: 2
   extraJumps: 2
