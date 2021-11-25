@@ -32,6 +32,7 @@ namespace BattleCrusaders.Movement
         
         [Header("Time to Die")] 
         [SerializeField] private SpawnPoint[] spawnPoints;
+        [SerializeField] private bool isGrounded;
 
 
         [Header("UI")] 
@@ -88,16 +89,23 @@ namespace BattleCrusaders.Movement
             float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
             float movementDirectionY = moveDirection.y;
             moveDirection = (right * curSpeedY);
-            
-            if(Input.GetButtonDown("Jump") && canMove && (characterController.isGrounded || extraJumps > 0)) {
-                moveDirection.y = jumpSpeed;
-                extraJumps--; }
+
+            if(Input.GetButtonDown("Jump") && canMove)
+            {
+                if(characterController.isGrounded)
+                {
+                    moveDirection.y = jumpSpeed;
+                    extraJumps--;
+                }
+                else if(extraJumps > 0)
+                {
+                    moveDirection.y = jumpSpeed;
+                    extraJumps--;
+                }
+            }
             else
                 moveDirection.y = movementDirectionY;
-
-            if(extraJumps != extraJumpsCount && characterController.isGrounded)
-                extraJumps = extraJumpsCount;
-            
+           
             // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
             // when the moveDirection is multiplied by deltaTime). This is because gravity should be applied
             // as an acceleration (ms^-2)
@@ -107,6 +115,9 @@ namespace BattleCrusaders.Movement
             // Move the controller
             characterController.Move(moveDirection * Time.deltaTime);
         #endregion
+
+            if(characterController.isGrounded)
+                extraJumps = extraJumpsCount;
         }
         
         private void OnControllerColliderHit(ControllerColliderHit _collision)
@@ -167,11 +178,19 @@ namespace BattleCrusaders.Movement
             GameObject newThrowObject = Instantiate(gameObjectsToThrow[Random.Range(0,gameObjectsToThrow.Length)], transform.localPosition + _position, _rotation);
             NetworkServer.Spawn(newThrowObject);
             Rigidbody throwRigidbody = newThrowObject.GetComponent<Rigidbody>();
-            if(_direction == ThrowDirection.Right)
-                newThrowObject.GetComponent<Rigidbody>().AddForce(myForce , myForce, Random.Range(0,10f), ForceMode.Impulse);
-            if(_direction == ThrowDirection.Left)
-                newThrowObject.GetComponent<Rigidbody>().AddForce(-myForce , myForce, -Random.Range(0f,10f), ForceMode.Impulse);
             
+            throwRigidbody.velocity = characterController.velocity;
+            
+            if(_direction == ThrowDirection.Right)
+            {
+                throwRigidbody.AddForce(myForce, myForce, Random.Range(0, 10f), ForceMode.Impulse);
+            }
+            if(_direction == ThrowDirection.Left)
+            {
+                throwRigidbody.AddForce(-myForce, myForce, -Random.Range(0f, 10f), ForceMode.Impulse);
+            }
+            
+
             throwRigidbody.AddTorque(Random.Range(myForce, -myForce),Random.Range(myForce, -myForce),Random.Range(myForce, -myForce),ForceMode.Impulse);
         }
         private enum ThrowDirection { Right, Left }
