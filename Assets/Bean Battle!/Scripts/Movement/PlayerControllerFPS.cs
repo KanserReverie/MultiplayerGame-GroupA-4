@@ -125,25 +125,31 @@ namespace BattleCrusaders.Movement
                 extraJumps = extraJumpsMax;
         }
 
-        // private void OnControllerColliderHit(ControllerColliderHit _collision)
-        // {
-        //     if(_collision.gameObject.layer == LayerMask.NameToLayer("Objects to Throw"))
-        //     {
-        //         print("Hit");
-        //
-        //         if(!isLocalPlayer)
-        //             return;
-        //
-        //         print("Hit Local Player");
-        //         
-        //         spawnPoints = FindObjectsOfType<SpawnPoint>();
-        //         ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
-        //
-        //         print("dead");
-        //         NetworkServer.Destroy(_collision.gameObject);
-        //         Destroy(_collision.gameObject);
-        //     }
-        // }
+        private void OnControllerColliderHit(ControllerColliderHit _collision)
+        {
+            if(_collision.gameObject.layer == LayerMask.NameToLayer("Objects to Throw"))
+            {
+                print("Hit from player");
+        
+                // Think not needed.
+                // if(!isLocalPlayer)
+                //     return;
+        
+                // // Change to this code for the 2 player thing.
+                // int allPlayers = FindObjectsOfType<PlayerControllerFPS>().Length;
+                // if(allPlayers < 2)
+                // {
+                //     spawnPoints = FindObjectsOfType<SpawnPoint>();
+                //     ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
+                // }
+                
+                spawnPoints = FindObjectsOfType<SpawnPoint>();
+                ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
+
+                NetworkServer.Destroy(_collision.gameObject);
+                Destroy(_collision.gameObject);
+            }
+        }
 
         /// <summary>
         /// Reset the location of this Player.

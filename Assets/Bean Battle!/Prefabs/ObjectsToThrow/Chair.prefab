@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6185948502332180732
+--- !u!1 &1957553287731103547
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6814852027415188038}
-  - component: {fileID: 7583195746910985699}
-  - component: {fileID: 5681320699939072297}
-  - component: {fileID: 6185948502332180720}
-  - component: {fileID: 6185948502332180735}
-  - component: {fileID: 6185948502332180734}
-  - component: {fileID: 6185948502332180733}
-  - component: {fileID: -9065410099229934237}
-  m_Layer: 8
-  m_Name: Book
+  - component: {fileID: 1180348802342329729}
+  - component: {fileID: 2868418502231003684}
+  - component: {fileID: 11923275063224046}
+  - component: {fileID: 297315089770908356}
+  - component: {fileID: 4900968736308050591}
+  - component: {fileID: 6333394869278605544}
+  - component: {fileID: 8319848903308268981}
+  - component: {fileID: 4152191194699195473}
+  m_Layer: 0
+  m_Name: Chair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6814852027415188038
+--- !u!4 &1180348802342329729
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6185948502332180732}
+  m_GameObject: {fileID: 1957553287731103547}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.36171293, y: 0.41086, z: 0.41086}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1.009692, y: 0.050899867, z: 1.0123048}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7583195746910985699
+--- !u!33 &2868418502231003684
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6185948502332180732}
-  m_Mesh: {fileID: 3861478300804232965, guid: b1323a80fb4d0594f8e49fd8a69c7aef, type: 3}
---- !u!23 &5681320699939072297
+  m_GameObject: {fileID: 1957553287731103547}
+  m_Mesh: {fileID: 4068373912626513877, guid: 4cf30b02db2c54c4f985715ad73eb534, type: 3}
+--- !u!23 &11923275063224046
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6185948502332180732}
+  m_GameObject: {fileID: 1957553287731103547}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: b1323a80fb4d0594f8e49fd8a69c7aef, type: 3}
+  - {fileID: 5561349426305759274, guid: 4cf30b02db2c54c4f985715ad73eb534, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,27 +86,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6185948502332180720
+--- !u!64 &297315089770908356
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6185948502332180732}
-  m_Material: {fileID: 13400000, guid: f25e74e84f5a641428be1ee6c5a7ab79, type: 2}
+  m_GameObject: {fileID: 1957553287731103547}
+  m_Material: {fileID: 13400000, guid: 34968d817d6e0e24da5c3bc61a889a15, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 3861478300804232965, guid: b1323a80fb4d0594f8e49fd8a69c7aef, type: 3}
---- !u!114 &6185948502332180735
+  m_Mesh: {fileID: 4068373912626513877, guid: 4cf30b02db2c54c4f985715ad73eb534, type: 3}
+--- !u!114 &4900968736308050591
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6185948502332180732}
+  m_GameObject: {fileID: 1957553287731103547}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
@@ -115,15 +115,15 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 2
-  m_AssetId: 94ba65c1936260d4f94c0394593e4ef7
+  m_AssetId: fbcd6dd09617f4940ab8778895f3a9a8
   hasSpawned: 0
---- !u!114 &6185948502332180734
+--- !u!114 &6333394869278605544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6185948502332180732}
+  m_GameObject: {fileID: 1957553287731103547}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83392ae5c1b731446909f252fd494ae4, type: 3}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  target: {fileID: 6185948502332180733}
+  target: {fileID: 8319848903308268981}
   clientAuthority: 0
   syncVelocity: 1
   clearVelocity: 0
@@ -139,29 +139,29 @@ MonoBehaviour:
   syncAngularVelocity: 1
   clearAngularVelocity: 0
   angularVelocitySensitivity: 0.1
---- !u!54 &6185948502332180733
+--- !u!54 &8319848903308268981
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6185948502332180732}
+  m_GameObject: {fileID: 1957553287731103547}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 3
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.07
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 72
   m_CollisionDetection: 0
---- !u!114 &-9065410099229934237
+--- !u!114 &4152191194699195473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6185948502332180732}
+  m_GameObject: {fileID: 1957553287731103547}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c274646644e0fcb418103f862de52d6c, type: 3}
@@ -170,7 +170,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   lifeTimer: 2.1
-  thisRigidbody: {fileID: 6185948502332180733}
+  thisRigidbody: {fileID: 8319848903308268981}
   currentPosition: {x: 0, y: 0, z: 0}
   currentRotation: {x: 0, y: 0, z: 0, w: 1}
   spawnPoints: []

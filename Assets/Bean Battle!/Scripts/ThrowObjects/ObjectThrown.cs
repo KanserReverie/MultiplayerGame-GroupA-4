@@ -18,10 +18,6 @@ namespace Beanbattle.ThrowObjects
 
         [Header("Time to Die")] 
         [SerializeField] private SpawnPoint[] spawnPoints;
-        public override void OnStartServer()
-        {
-            thisRigidbody = GetComponent<Rigidbody>();
-        }
 
         [ClientRpc] private void RpcSyncPositionWithClients(Vector3 positionToSync)
         {
@@ -50,21 +46,26 @@ namespace Beanbattle.ThrowObjects
             }
         }
 
-        private void OnCollisionEnter (Collision _collision)
+        private void OnCollisionEnter(Collision _collision)
         {
-            print("yes book hit" + lifeTimer);
             if(_collision.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                print("Hit");
-                
+                print("Hit from Object - " + gameObject.name);
+                // // Change to this code for the 2 player thing.
+                // int allPlayers = FindObjectsOfType<PlayerControllerFPS>().Length;
+                // if(allPlayers < 2)
+                // {
+                //     spawnPoints = FindObjectsOfType<SpawnPoint>();
+                //     _collision.gameObject.GetComponent<PlayerControllerFPS>().ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
+                // }
+
                 spawnPoints = FindObjectsOfType<SpawnPoint>();
                 _collision.gameObject.GetComponent<PlayerControllerFPS>().ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
-                print("dead");
                 NetworkServer.Destroy(gameObject);
                 Destroy(gameObject);
             }
         }
-        
+
         private void LateUpdate()
         {
             if(!isServer)

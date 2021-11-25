@@ -609,6 +609,9 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 6185948502332180732, guid: 94ba65c1936260d4f94c0394593e4ef7, type: 3}
+  - {fileID: 1957553287731103547, guid: fbcd6dd09617f4940ab8778895f3a9a8, type: 3}
+  - {fileID: 7872768521080250842, guid: ebba8591547d65d4c8a0625220d7d7fc, type: 3}
+  - {fileID: 2636005279243157289, guid: 42d827adb77c8204bb5b0bf4fbc68b28, type: 3}
   discovery: {fileID: 736557920}
 --- !u!4 &736557919
 Transform:
