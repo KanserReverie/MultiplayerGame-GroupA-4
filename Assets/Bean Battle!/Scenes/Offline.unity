@@ -547,6 +547,7 @@ GameObject:
   - component: {fileID: 736557918}
   - component: {fileID: 736557920}
   - component: {fileID: 736557917}
+  - component: {fileID: 736557921}
   m_Layer: 0
   m_Name: Custom Network Manager
   m_TagString: Untagged
@@ -647,6 +648,21 @@ MonoBehaviour:
   onServerFound:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &736557921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736557916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0df3008429a7a044bb5a9e837956fd1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allScenes:
+  - Bean Battle!/Scenes/Online
+  - Bean Battle!/Scenes/Online 2
 --- !u!1 &1215362511
 GameObject:
   m_ObjectHideFlags: 0

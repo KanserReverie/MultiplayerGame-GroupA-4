@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 using Ping = System.Net.NetworkInformation.Ping;
 
-namespace Beanbattle
+namespace Beanbattle.Networking
 {
 	[RequireComponent(typeof(Button))]
 	public class DiscoveredGame : MonoBehaviour

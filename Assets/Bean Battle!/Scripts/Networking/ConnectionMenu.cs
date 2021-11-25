@@ -7,7 +7,7 @@ using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Beanbattle
+namespace Beanbattle.Networking
 {
 	public class ConnectionMenu : MonoBehaviour
 	{

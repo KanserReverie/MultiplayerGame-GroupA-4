@@ -1,4 +1,5 @@
 using BattleCrusaders.Movement;
+using Beanbattle.Networking;
 using Beanbattle.Spawn;
 using Mirror;
 using UnityEngine;
@@ -61,6 +62,9 @@ namespace Beanbattle.ThrowObjects
 
                 spawnPoints = FindObjectsOfType<SpawnPoint>();
                 _collision.gameObject.GetComponent<PlayerControllerFPS>().ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
+                
+                SceneTransitionManager.Instance.ChangeToRandomScene();
+                
                 NetworkServer.Destroy(gameObject);
                 Destroy(gameObject);
             }

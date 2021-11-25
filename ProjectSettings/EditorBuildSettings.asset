@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Bean Battle!/Scenes/Online.unity
     guid: a638763e41de0444188667d65d310cae
+  - enabled: 1
+    path: Assets/Bean Battle!/Scenes/Online 2.unity
+    guid: 1a1a8d96b8c43274db99a1cebb938ffc
   m_configObjects: {}

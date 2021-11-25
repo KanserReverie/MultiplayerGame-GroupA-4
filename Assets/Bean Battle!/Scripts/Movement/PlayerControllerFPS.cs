@@ -1,3 +1,4 @@
+using Beanbattle.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -177,6 +178,8 @@ namespace BattleCrusaders.Movement
                 
                 spawnPoints = FindObjectsOfType<SpawnPoint>();
                 ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
+
+                SceneTransitionManager.Instance.ChangeToRandomScene();
 
                 NetworkServer.Destroy(_collision.gameObject);
                 Destroy(_collision.gameObject);
