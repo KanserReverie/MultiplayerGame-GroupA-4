@@ -2,7 +2,8 @@ using Mirror;
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using Beanbattle;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 namespace Beanbattle.Networking
 {
@@ -29,17 +30,21 @@ namespace Beanbattle.Networking
             }
         }
     #endregion
-        
+
         //[SerializeField, SceneField] private String allScenes;
 
         [SerializeField, SceneField] private string[] allScenes;
-        public void ChangeToRandomScene()
+        [SerializeField] private int sceneNumber = 0;
+        public void ChangeToNextScene()
         {
-            if(allScenes != null)
-            {
-                String nextScene = allScenes[Random.Range(0, allScenes.Length)];
-                NetworkManager.singleton.ServerChangeScene(nextScene);
-            }
+            if(allScenes.Length == 0 || allScenes == null)
+                return;
+            
+            sceneNumber++;
+            if(sceneNumber > allScenes.Length)
+                sceneNumber = 0;
+            
+            NetworkManager.singleton.ServerChangeScene(allScenes[sceneNumber]);
         }
     }
 }

@@ -182,7 +182,7 @@ namespace BattleCrusaders.Movement
                 spawnPoints = FindObjectsOfType<SpawnPoint>();
                 ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
 
-                SceneTransitionManager.Instance.ChangeToRandomScene();
+                SceneTransitionManager.Instance.ChangeToNextScene();
 
                 NetworkServer.Destroy(_collision.gameObject);
                 Destroy(_collision.gameObject);
