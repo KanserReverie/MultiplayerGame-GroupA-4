@@ -28,8 +28,6 @@ namespace BattleCrusaders.Movement
         [SerializeField] private Quaternion rightThrowRotation;
         [SerializeField] private Quaternion leftThrowRotation;
         [SerializeField] private float myForce;
-        [SerializeField] private KeyCode rightThrow = KeyCode.RightArrow;
-        [SerializeField] private KeyCode leftThrow = KeyCode.LeftArrow;
         [SerializeField] private float throwTimerMax = 2.0f;
         [SerializeField] private float throwTimer;
 
@@ -61,9 +59,9 @@ namespace BattleCrusaders.Movement
         void Update()
         {
             // Lock the cursor if you want to.
-            if(lockCursor) 
+            if(lockCursor)
                 LockCursor();
-            
+
         #region Z Offset Alignment
             // This should fix the player from moving on the z direction.
             if(transform.position.z != zPosition)
@@ -94,7 +92,7 @@ namespace BattleCrusaders.Movement
                 }
             }
         #endregion
-            
+
         #region Move Player
             // We are grounded, so recalculate move direction based on axes.
             Vector3 right = transform.TransformDirection(Vector3.right);
@@ -120,7 +118,7 @@ namespace BattleCrusaders.Movement
             }
             else
                 moveDirection.y = movementDirectionY;
-           
+
             // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
             // when the moveDirection is multiplied by deltaTime). This is because gravity should be applied
             // as an acceleration (ms^-2)
@@ -133,10 +131,11 @@ namespace BattleCrusaders.Movement
             if(moveDirection.x > 0)
             {
                 print("Move direction Right");
+
                 if(facingDirection == Direction.Left)
                 {
-                    facingDirection = Direction.Right; 
-                    pivotPoint.localRotation = Quaternion.Euler(0, 0,0);
+                    facingDirection = Direction.Right;
+                    pivotPoint.localRotation = Quaternion.Euler(0, 0, 0);
                     print("Now facing Right");
                 }
             }
@@ -144,9 +143,10 @@ namespace BattleCrusaders.Movement
             if(moveDirection.x < 0)
             {
                 print("Move direction Left");
+
                 if(facingDirection == Direction.Right)
                 {
-                    pivotPoint.localRotation = Quaternion.Euler(0, 180,0);
+                    pivotPoint.localRotation = Quaternion.Euler(0, 180, 0);
                     facingDirection = Direction.Left;
                     print("Now facing Right");
                 }
@@ -155,7 +155,10 @@ namespace BattleCrusaders.Movement
         #endregion
 
             if(characterController.isGrounded)
+            {
                 extraJumps = extraJumpsMax;
+                moveDirection.y = 0;
+            }
         }
 
         private void OnControllerColliderHit(ControllerColliderHit _collision)
@@ -213,8 +216,8 @@ namespace BattleCrusaders.Movement
             GameObject newThrowObject = Instantiate(gameObjectsToThrow[Random.Range(0,gameObjectsToThrow.Length)], transform.localPosition + _position, _rotation);
             NetworkServer.Spawn(newThrowObject);
             Rigidbody throwRigidbody = newThrowObject.GetComponent<Rigidbody>();
-            
-            throwRigidbody.velocity = characterController.velocity;
+
+            throwRigidbody.velocity = characterController.velocity * 2f;
             
             if(_direction == Direction.Right)
             {
