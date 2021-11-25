@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Beanbattle.Spawn;
+using Mirror.Examples.Chat;
 
 namespace BattleCrusaders.Movement
 {
@@ -31,6 +32,9 @@ namespace BattleCrusaders.Movement
         [SerializeField] private float throwTimerMax = 2.0f;
         [SerializeField] private float throwTimer;
 
+        [Header("Vector Stuff")]
+        [SerializeField] private Direction facingDirection;
+        [SerializeField] private Transform pivotPoint;
         [Header("Time to Die")] 
         [SerializeField] private SpawnPoint[] spawnPoints;
 
@@ -72,15 +76,20 @@ namespace BattleCrusaders.Movement
                 throwTimer += Time.deltaTime;
             else
             {
-                if(Input.GetKeyDown(rightThrow))
+                // Throw an item in the direction you are facing.
+                if(Input.GetButtonDown("Throw"))
                 {
-                    throwTimer = 0;
-                    CmdThrow(throwPointVector3, rightThrowRotation, ThrowDirection.Right);
-                }
-                if(Input.GetKeyDown(leftThrow))
-                {
-                    throwTimer = 0;
-                    CmdThrow(new Vector3(-throwPointVector3.x, throwPointVector3.y, throwPointVector3.z), leftThrowRotation, ThrowDirection.Left);
+                    if(facingDirection == Direction.Right)
+                    {
+                        throwTimer = 0;
+                        CmdThrow(throwPointVector3, rightThrowRotation, Direction.Right);
+                    }
+
+                    if(facingDirection == Direction.Left)
+                    {
+                        throwTimer = 0;
+                        CmdThrow(new Vector3(-throwPointVector3.x, throwPointVector3.y, throwPointVector3.z), leftThrowRotation, Direction.Left);
+                    }
                 }
             }
         #endregion
@@ -119,6 +128,29 @@ namespace BattleCrusaders.Movement
 
             // Move the controller
             characterController.Move(moveDirection * Time.deltaTime);
+
+            if(moveDirection.x > 0)
+            {
+                print("Move direction Right");
+                if(facingDirection == Direction.Left)
+                {
+                    facingDirection = Direction.Right; 
+                    pivotPoint.localRotation = Quaternion.Euler(0, 0,0);
+                    print("Now facing Right");
+                }
+            }
+
+            if(moveDirection.x < 0)
+            {
+                print("Move direction Left");
+                if(facingDirection == Direction.Right)
+                {
+                    pivotPoint.localRotation = Quaternion.Euler(0, 180,0);
+                    facingDirection = Direction.Left;
+                    print("Now facing Right");
+                }
+            }
+
         #endregion
 
             if(characterController.isGrounded)
@@ -173,7 +205,7 @@ namespace BattleCrusaders.Movement
         /// </summary>
         /// <param name="_position"> Place to start throwing the Object. </param>
         /// <param name="_rotation"> Rotation of the throw. </param>
-        [Command] private void CmdThrow(Vector3 _position, Quaternion _rotation, ThrowDirection _direction)
+        [Command] private void CmdThrow(Vector3 _position, Quaternion _rotation, Direction _direction)
         {
             GameObject newThrowObject = Instantiate(gameObjectsToThrow[Random.Range(0,gameObjectsToThrow.Length)], transform.localPosition + _position, _rotation);
             NetworkServer.Spawn(newThrowObject);
@@ -181,11 +213,11 @@ namespace BattleCrusaders.Movement
             
             throwRigidbody.velocity = characterController.velocity;
             
-            if(_direction == ThrowDirection.Right)
+            if(_direction == Direction.Right)
             {
                 throwRigidbody.AddForce(myForce, myForce, Random.Range(0, 10f), ForceMode.Impulse);
             }
-            if(_direction == ThrowDirection.Left)
+            if(_direction == Direction.Left)
             {
                 throwRigidbody.AddForce(-myForce, myForce, -Random.Range(0f, 10f), ForceMode.Impulse);
             }
@@ -195,7 +227,7 @@ namespace BattleCrusaders.Movement
         }
         
         //[ClientRpc]
-        private void RpcThrow(Vector3 _position, Quaternion _rotation, ThrowDirection _direction)
+        private void RpcThrow(Vector3 _position, Quaternion _rotation, Direction _direction)
         {
             GameObject newThrowObject = Instantiate(gameObjectsToThrow[Random.Range(0,gameObjectsToThrow.Length)], transform.localPosition + _position, _rotation);
             NetworkServer.Spawn(newThrowObject);
@@ -203,11 +235,11 @@ namespace BattleCrusaders.Movement
             
             throwRigidbody.velocity = characterController.velocity.y > 0 ? characterController.velocity : new Vector3(characterController.velocity.x, 0, 0);
 
-            if(_direction == ThrowDirection.Right)
+            if(_direction == Direction.Right)
             {
                 throwRigidbody.AddForce(myForce, myForce, Random.Range(0, 10f), ForceMode.Impulse);
             }
-            if(_direction == ThrowDirection.Left)
+            if(_direction == Direction.Left)
             {
                 throwRigidbody.AddForce(-myForce, myForce, -Random.Range(0f, 10f), ForceMode.Impulse);
             }
@@ -216,6 +248,6 @@ namespace BattleCrusaders.Movement
             NetworkServer.Spawn(newThrowObject);
         }
         
-        private enum ThrowDirection { Right, Left }
+        private enum Direction { Right, Left }
     }
 }
