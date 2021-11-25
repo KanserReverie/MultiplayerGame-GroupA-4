@@ -36,6 +36,7 @@ namespace BattleCrusaders.Movement
 
         [Header("UI")] 
         [SerializeField] private bool lockCursor = false;
+        [SerializeField] private bool resetTransform000;
         
         private float zPosition = 0f;
         private Vector3 movementOffSet;
@@ -110,16 +111,49 @@ namespace BattleCrusaders.Movement
         
         private void OnCollisionStay(Collision _collision)
         {
+            if(!isLocalPlayer)
+                return;
+            
             if(_collision.gameObject.layer == LayerMask.NameToLayer("Objects to Throw"))
             {
-                spawnPoints = FindObjectsOfType<SpawnPoint>();
-                transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position;
-                transform.rotation = spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation;
+                if(resetTransform000)
+                {
+                    spawnPoints = FindObjectsOfType<SpawnPoint>();
+                    CmdResetPosition(
+                        spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, 
+                        spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
+                }
+                else
+                {
+                    CmdResetPosition(new Vector3(0,0,0), new Quaternion(1,0,0,0));
+                }
+                
                 print("dead");
-                //Destroy(_collision.gameObject);
+                Destroy(_collision.gameObject);
             }
         }
 
+        /// <summary>
+        /// Reset the location of this Player.
+        /// </summary>
+        /// <param name="_position"> Position to move to. </param>
+        /// <param name="_rotation"> New rotation of the Player. </param>
+        [Command]
+        private void CmdResetPosition(Vector3 _position, Quaternion _rotation)
+        {
+            print("Position = " + transform.position + "Rotation = " + transform.rotation);
+            gameObject.transform.position = _position;
+            gameObject.transform.rotation = _rotation;
+            print("Position = " + transform.position + "Rotation = " + transform.rotation);
+        }
+        // ^^^Might need to add back ^^^
+        // [ClientRpc]
+        // private void rpcResetPosition(Vector3 _position, Quaternion _rotation)
+        // {
+        //     
+        // }
+        
+        
         /// <summary>
         /// Throws an object.
         /// </summary>
