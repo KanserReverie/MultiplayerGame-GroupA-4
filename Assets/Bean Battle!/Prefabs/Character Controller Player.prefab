@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 4444101658184305704}
   - component: {fileID: 3367140129893280905}
   - component: {fileID: 4872570827296345596}
-  m_Layer: 0
+  - component: {fileID: 6293572909642254216}
+  m_Layer: 6
   m_Name: Character Controller Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,23 +154,23 @@ MonoBehaviour:
   runningSpeed: 11.5
   jumpSpeed: 8
   gravity: 20
-  lookSpeed: 2
-  lookXLimit: 45
-  extraJumpsCount: 2
+  extraJumpsMax: 2
+  extraJumps: 2
   characterController: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
+  canMove: 1
   gameObjectsToThrow:
   - {fileID: 6185948502332180732, guid: 94ba65c1936260d4f94c0394593e4ef7, type: 3}
-  throwPointVector3: {x: 1.5, y: 1.5, z: 0}
+  throwPointVector3: {x: 1.8, y: 1.4, z: 0}
   rightThrowRotation: {x: 1, y: 0, z: 0, w: 0}
   leftThrowRotation: {x: 0, y: 0, z: -1, w: 0}
-  myForce: 5
+  myForce: 6
   rightThrow: 275
   leftThrow: 276
-  canMove: 1
+  throwTimerMax: 1.4
+  throwTimer: 0
   spawnPoints: []
   lockCursor: 0
-  resetTransform000: 1
 --- !u!114 &4872570827296345596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,3 +200,19 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &6293572909642254216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220272172362058614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db3d3259f32e23b42a5945be1a36d14c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  enemyToSpawn: {fileID: 6185948502332180732, guid: 94ba65c1936260d4f94c0394593e4ef7, type: 3}
+  cubeColor: {r: 0, g: 0, b: 0, a: 0}

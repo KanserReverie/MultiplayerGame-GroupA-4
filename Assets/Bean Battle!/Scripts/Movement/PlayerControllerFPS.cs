@@ -12,12 +12,13 @@ namespace BattleCrusaders.Movement
         [SerializeField] private float runningSpeed = 11.5f;
         [SerializeField] private float jumpSpeed = 8.0f;
         [SerializeField] private float gravity = 20.0f;
-        [SerializeField] private float lookSpeed = 2.0f;
-        [SerializeField] private float lookXLimit = 45.0f;
-        [SerializeField] private int extraJumpsCount = 2;
-        private int extraJumps = 2;
+        //[SerializeField] private float lookSpeed = 2.0f;
+        //[SerializeField] private float lookXLimit = 45.0f;
+        [SerializeField] private int extraJumpsMax = 2;
+        [SerializeField] private int extraJumps = 2;
         [SerializeField] private CharacterController characterController;
         [SerializeField] private Vector3 moveDirection = Vector3.zero;
+        [HideInInspector] public bool canMove = true;
 
         [Header("Time to throw a thing")]
         [SerializeField] private GameObject[] gameObjectsToThrow;
@@ -27,17 +28,15 @@ namespace BattleCrusaders.Movement
         [SerializeField] private float myForce;
         [SerializeField] private KeyCode rightThrow = KeyCode.RightArrow;
         [SerializeField] private KeyCode leftThrow = KeyCode.LeftArrow;
+        [SerializeField] private float throwTimerMax = 2.0f;
+        [SerializeField] private float throwTimer;
 
-        [HideInInspector] public bool canMove = true;
-        
         [Header("Time to Die")] 
         [SerializeField] private SpawnPoint[] spawnPoints;
-        [SerializeField] private bool isGrounded;
 
 
         [Header("UI")] 
         [SerializeField] private bool lockCursor = false;
-        [SerializeField] private bool resetTransform000 = true;
         
         private float zPosition = 0f;
         private Vector3 movementOffSet;
@@ -59,11 +58,7 @@ namespace BattleCrusaders.Movement
             // Lock the cursor if you want to.
             if(lockCursor) 
                 LockCursor();
-
-            // If we are not the main client dont run this method.
-            if(!isLocalPlayer)
-                return;
-
+            
         #region Z Offset Alignment
             // This should fix the player from moving on the z direction.
             if(transform.position.z != zPosition)
@@ -73,11 +68,21 @@ namespace BattleCrusaders.Movement
         #endregion
 
         #region Throw Item
-            if(Input.GetKeyDown(rightThrow))
-                CmdThrow(throwPointVector3, rightThrowRotation, ThrowDirection.Right);
-
-            if(Input.GetKeyDown(leftThrow))
-                CmdThrow(new Vector3(-throwPointVector3.x, throwPointVector3.y, throwPointVector3.z), leftThrowRotation, ThrowDirection.Left);
+            if(throwTimer < throwTimerMax)
+                throwTimer += Time.deltaTime;
+            else
+            {
+                if(Input.GetKeyDown(rightThrow))
+                {
+                    throwTimer = 0;
+                    CmdThrow(throwPointVector3, rightThrowRotation, ThrowDirection.Right);
+                }
+                if(Input.GetKeyDown(leftThrow))
+                {
+                    throwTimer = 0;
+                    CmdThrow(new Vector3(-throwPointVector3.x, throwPointVector3.y, throwPointVector3.z), leftThrowRotation, ThrowDirection.Left);
+                }
+            }
         #endregion
             
         #region Move Player
@@ -117,40 +122,36 @@ namespace BattleCrusaders.Movement
         #endregion
 
             if(characterController.isGrounded)
-                extraJumps = extraJumpsCount;
+                extraJumps = extraJumpsMax;
         }
-        
-        private void OnControllerColliderHit(ControllerColliderHit _collision)
-        {
-            if(!isLocalPlayer)
-                return;
-            
-            if(_collision.gameObject.layer == LayerMask.NameToLayer("Objects to Throw"))
-            {
-                if(resetTransform000)
-                {
-                    spawnPoints = FindObjectsOfType<SpawnPoint>();
-                    CmdResetPosition(
-                        spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, 
-                        spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
-                }
-                else
-                {
-                    CmdResetPosition(new Vector3(0,0,0), new Quaternion(1,0,0,0));
-                }
-                
-                print("dead");
-                Destroy(_collision.gameObject);
-            }
-        }
+
+        // private void OnControllerColliderHit(ControllerColliderHit _collision)
+        // {
+        //     if(_collision.gameObject.layer == LayerMask.NameToLayer("Objects to Throw"))
+        //     {
+        //         print("Hit");
+        //
+        //         if(!isLocalPlayer)
+        //             return;
+        //
+        //         print("Hit Local Player");
+        //         
+        //         spawnPoints = FindObjectsOfType<SpawnPoint>();
+        //         ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
+        //
+        //         print("dead");
+        //         NetworkServer.Destroy(_collision.gameObject);
+        //         Destroy(_collision.gameObject);
+        //     }
+        // }
 
         /// <summary>
         /// Reset the location of this Player.
         /// </summary>
         /// <param name="_position"> Position to move to. </param>
         /// <param name="_rotation"> New rotation of the Player. </param>
-        [Command]
-        private void CmdResetPosition(Vector3 _position, Quaternion _rotation)
+        //[Command]
+        public void ResetPosition(Vector3 _position, Quaternion _rotation)
         {
             characterController.enabled = false;
             print("Position = " + transform.position + "Rotation = " + transform.rotation);
@@ -160,14 +161,7 @@ namespace BattleCrusaders.Movement
             characterController.enabled = true;
             moveDirection = new Vector3(0, 0, 0);
         }
-        // ^^^Might need to add back ^^^
-        // [ClientRpc]
-        // private void rpcResetPosition(Vector3 _position, Quaternion _rotation)
-        // {
-        //     
-        // }
-        
-        
+
         /// <summary>
         /// Throws an object.
         /// </summary>
@@ -189,10 +183,33 @@ namespace BattleCrusaders.Movement
             {
                 throwRigidbody.AddForce(-myForce, myForce, -Random.Range(0f, 10f), ForceMode.Impulse);
             }
-            
-
             throwRigidbody.AddTorque(Random.Range(myForce, -myForce),Random.Range(myForce, -myForce),Random.Range(myForce, -myForce),ForceMode.Impulse);
+            throwTimer = 0f;
+            NetworkServer.Spawn(newThrowObject);
         }
+        
+        //[ClientRpc]
+        private void RpcThrow(Vector3 _position, Quaternion _rotation, ThrowDirection _direction)
+        {
+            GameObject newThrowObject = Instantiate(gameObjectsToThrow[Random.Range(0,gameObjectsToThrow.Length)], transform.localPosition + _position, _rotation);
+            NetworkServer.Spawn(newThrowObject);
+            Rigidbody throwRigidbody = newThrowObject.GetComponent<Rigidbody>();
+            
+            throwRigidbody.velocity = characterController.velocity.y > 0 ? characterController.velocity : new Vector3(characterController.velocity.x, 0, 0);
+
+            if(_direction == ThrowDirection.Right)
+            {
+                throwRigidbody.AddForce(myForce, myForce, Random.Range(0, 10f), ForceMode.Impulse);
+            }
+            if(_direction == ThrowDirection.Left)
+            {
+                throwRigidbody.AddForce(-myForce, myForce, -Random.Range(0f, 10f), ForceMode.Impulse);
+            }
+            throwRigidbody.AddTorque(Random.Range(myForce, -myForce),Random.Range(myForce, -myForce),Random.Range(myForce, -myForce),ForceMode.Impulse);
+            throwTimer = 0f;
+            NetworkServer.Spawn(newThrowObject);
+        }
+        
         private enum ThrowDirection { Right, Left }
     }
 }
