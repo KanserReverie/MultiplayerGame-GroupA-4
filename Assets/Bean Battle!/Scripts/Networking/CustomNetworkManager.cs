@@ -78,5 +78,10 @@ namespace Beanbattle.Networking
 		{
 			IsHost = false;
 		}
+
+		public bool tablesOnlyMode = false;
+		public bool canChangeModes = true;
+		public void TurnTablesOnlyOn() => tablesOnlyMode = true;
+		public void CantTurnTablesOnlyOnAnymore() => canChangeModes = false;
 	}
 }

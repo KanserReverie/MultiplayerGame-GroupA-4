@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 6360897789118066194}
   - component: {fileID: 2587930506239204534}
   - component: {fileID: 6597045635578623531}
+  - component: {fileID: 5780422827722386766}
   m_Layer: 6
   m_Name: Character Controller Player
   m_TagString: Untagged
@@ -159,10 +160,10 @@ MonoBehaviour:
   - {fileID: 6185948502332180732, guid: 94ba65c1936260d4f94c0394593e4ef7, type: 3}
   - {fileID: 1957553287731103547, guid: fbcd6dd09617f4940ab8778895f3a9a8, type: 3}
   - {fileID: 7872768521080250842, guid: ebba8591547d65d4c8a0625220d7d7fc, type: 3}
-  throwPointVector3: {x: 2, y: 1.7, z: 0}
-  rightThrowRotation: {x: 1, y: 0, z: 0, w: 0}
+  throwPointVector3: {x: 2.3, y: 1.8, z: 0}
+  rightThrowRotation: {x: 1, y: 1.14, z: 0.51, w: 0.03}
   leftThrowRotation: {x: 0, y: 0, z: -1, w: 0}
-  myForce: 8
+  myForce: 10
   throwTimerMax: 0.8
   throwTimer: 0
   facingDirection: 0
@@ -340,6 +341,47 @@ MonoBehaviour:
     localScale: {x: 0, y: 0, z: 0}
     movementSpeed: 0
   target: {fileID: 7768559923794034815}
+--- !u!114 &5780422827722386766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220272172362058614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65214da13a861f4a8ae309d3daea1c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  excludeOwnerUpdate: 1
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  lastPosition: {x: 0, y: 0, z: 0}
+  lastRotation: {x: 0, y: 0, z: 0, w: 0}
+  lastScale: {x: 0, y: 0, z: 0}
+  start:
+    timeStamp: 0
+    localPosition: {x: 0, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: 0, w: 0}
+    localScale: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+  goal:
+    timeStamp: 0
+    localPosition: {x: 0, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: 0, w: 0}
+    localScale: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+  target: {fileID: 2819314838055800158}
 --- !u!1001 &386443854744007867
 PrefabInstance:
   m_ObjectHideFlags: 0

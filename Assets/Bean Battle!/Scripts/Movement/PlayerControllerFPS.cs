@@ -65,7 +65,7 @@ namespace BattleCrusaders.Movement
             {
                 if(FindObjectsOfType<PlayerControllerFPS>().Length < 2)
                 {
-                    if(TablesOnlyMode.Instance.canChangeModes)
+                    if(CustomNetworkManager.Instance.canChangeModes)
                     {
                         tablesOnly.gameObject.SetActive(true);
                         tablesOnlyPopupOn = true;
@@ -99,14 +99,14 @@ namespace BattleCrusaders.Movement
             {
                 if(Input.GetKeyDown(KeyCode.Y))
                 {
-                    TablesOnlyMode.Instance.TurnTablesOnlyOn();
-                    TablesOnlyMode.Instance.CantTurnTablesOnlyOnAnymore();
+                    CustomNetworkManager.Instance.TurnTablesOnlyOn();
+                    CustomNetworkManager.Instance.CantTurnTablesOnlyOnAnymore();
                     tablesOnly.gameObject.SetActive(false);
                     tablesOnlyPopupOn = false;
                 }
                 if(Input.GetKeyDown(KeyCode.N))
                 {
-                    TablesOnlyMode.Instance.CantTurnTablesOnlyOnAnymore();
+                    CustomNetworkManager.Instance.CantTurnTablesOnlyOnAnymore();
                     tablesOnly.gameObject.SetActive(false);
                     tablesOnlyPopupOn = false;
                 }
@@ -268,8 +268,11 @@ namespace BattleCrusaders.Movement
         /// <param name="_rotation"> Rotation of the throw. </param>
         [Command] private void CmdThrow(Vector3 _position, Quaternion _rotation, Direction _direction)
         {
+            if(!connectionToClient.isReady)
+                return;
+
             // Are we in tables only mode?
-            int itemToThrow = TablesOnlyMode.Instance.tablesOnlyMode ? 0 : Random.Range(0, gameObjectsToThrow.Length);
+            int itemToThrow = CustomNetworkManager.Instance.tablesOnlyMode ? 0 : Random.Range(0, gameObjectsToThrow.Length);
 
             if(itemToThrow == 0)
             {
@@ -309,7 +312,7 @@ namespace BattleCrusaders.Movement
 
             if(_direction == Direction.Right)
             {
-                throwRigidbody.AddForce(myForce, myForce, Random.Range(0, 10f), ForceMode.Impulse);
+                throwRigidbody.AddForce(myForce, myForce*0.8f, Random.Range(0, 10f), ForceMode.Impulse);
             }
             if(_direction == Direction.Left)
             {
