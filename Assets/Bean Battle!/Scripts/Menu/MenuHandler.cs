@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class MenuHandler : MonoBehaviour
+namespace Beanbattle.Menu
 {
-	public void ChangeScene(int sceneIndex)
+	public class MenuHandler : MonoBehaviour
 	{
-		SceneManager.LoadScene(sceneIndex);
+		public void ChangeScene(int sceneIndex)
+		{
+			SceneManager.LoadScene(sceneIndex);
 
+		}
 	}
 }
