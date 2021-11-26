@@ -36,12 +36,21 @@ namespace Beanbattle.Networking
 			discovery.StartDiscovery();
 		}
 
-		private void OnClickHost() => networkManager.StartHost();
-		
+		private void OnClickHost()
+		{
+			// Saving as player number.
+			PlayerPrefs.SetInt("Player",1);
+			
+			networkManager.StartHost();
+		}
+
 		private void OnEndEditAddress(string _value) => networkManager.networkAddress = _value;
 		
 		private void OnClickConnect()
 		{
+			// Saving as player number.
+			PlayerPrefs.SetInt("Player",2);
+			
 			string address = inputField.text;
 			ushort port = 7777;
 			if(address.Contains(":"))

@@ -30,13 +30,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2636005279243157289}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.00000011921, y: 0.000000036049, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.23, y: 0, z: 0}
   m_LocalScale: {x: 2.2045097, y: 0.07125424, z: 1.1505588}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1761175649439509046
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -147,9 +147,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2636005279243157289}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 1.5
   m_Drag: 0
-  m_AngularDrag: 0.06
+  m_AngularDrag: 0.04
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -172,5 +172,5 @@ MonoBehaviour:
   lifeTimer: 2.1
   thisRigidbody: {fileID: 314441439391566776}
   currentPosition: {x: 0, y: 0, z: 0}
-  currentRotation: {x: 0, y: 0, z: 0, w: 1}
+  currentRotation: {x: 0, y: 0, z: 1, w: 0}
   spawnPoints: []

@@ -41,7 +41,7 @@ namespace Beanbattle.Networking
                 return;
             
             sceneNumber++;
-            if(sceneNumber > allScenes.Length)
+            if(sceneNumber >= allScenes.Length)
                 sceneNumber = 0;
             
             NetworkManager.singleton.ServerChangeScene(allScenes[sceneNumber]);

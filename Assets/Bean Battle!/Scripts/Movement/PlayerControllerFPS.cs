@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Beanbattle.Spawn;
+using Beanbattle.ThrowObjects;
+using UnityEngine.UI;
 using Mirror.Examples.Chat;
 
 namespace BattleCrusaders.Movement
@@ -40,6 +42,10 @@ namespace BattleCrusaders.Movement
 
         [Header("UI")] 
         [SerializeField] private bool lockCursor = false;
+        [SerializeField] private Image throwBar;
+        [SerializeField] private GameObject tablesOnly;
+        [SerializeField] private bool tablesOnlyPopupOn = false;
+        
         
         private float zPosition = 0f;
         private Vector3 movementOffSet;
@@ -48,8 +54,26 @@ namespace BattleCrusaders.Movement
         {
             characterController = GetComponent<CharacterController>();
             spawnPoints = FindObjectsOfType<SpawnPoint>();
+            throwBar.fillAmount = 1;
+            Invoke(nameof(TablesMode), 2f);
+            tablesOnlyPopupOn = false;
         }
 
+        private void TablesMode()
+        {
+            if(PlayerPrefs.GetInt("Player", 1) == 1)
+            {
+                if(FindObjectsOfType<PlayerControllerFPS>().Length < 2)
+                {
+                    if(TablesOnlyMode.Instance.canChangeModes)
+                    {
+                        tablesOnly.gameObject.SetActive(true);
+                        tablesOnlyPopupOn = true;
+                    }
+                }
+            }
+        }
+        
         private void LockCursor()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -70,6 +94,24 @@ namespace BattleCrusaders.Movement
             characterController.Move(movementOffSet);
         #endregion
 
+        #region Tables Only Popup
+            if(tablesOnlyPopupOn)
+            {
+                if(Input.GetKeyDown(KeyCode.Y))
+                {
+                    TablesOnlyMode.Instance.TurnTablesOnlyOn();
+                    TablesOnlyMode.Instance.CantTurnTablesOnlyOnAnymore();
+                    tablesOnly.gameObject.SetActive(false);
+                    tablesOnlyPopupOn = false;
+                }
+                if(Input.GetKeyDown(KeyCode.N))
+                {
+                    TablesOnlyMode.Instance.CantTurnTablesOnlyOnAnymore();
+                    tablesOnly.gameObject.SetActive(false);
+                    tablesOnlyPopupOn = false;
+                }
+            }
+        #endregion
         #region Throw Item
             if(throwTimer < throwTimerMax)
                 throwTimer += Time.deltaTime;
@@ -91,6 +133,8 @@ namespace BattleCrusaders.Movement
                     }
                 }
             }
+            float fraction = throwTimer / throwTimerMax;
+            throwBar.fillAmount = fraction;
         #endregion
 
         #region Move Player
@@ -159,6 +203,17 @@ namespace BattleCrusaders.Movement
                 extraJumps = extraJumpsMax;
                 moveDirection.y = 0;
             }
+
+        #region Quit on ESC
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #endif
+            }
+        #endregion
+            
         }
 
         private void OnControllerColliderHit(ControllerColliderHit _collision)
@@ -213,7 +268,18 @@ namespace BattleCrusaders.Movement
         /// <param name="_rotation"> Rotation of the throw. </param>
         [Command] private void CmdThrow(Vector3 _position, Quaternion _rotation, Direction _direction)
         {
-            GameObject newThrowObject = Instantiate(gameObjectsToThrow[Random.Range(0,gameObjectsToThrow.Length)], transform.localPosition + _position, _rotation);
+            // Are we in tables only mode?
+            int itemToThrow = TablesOnlyMode.Instance.tablesOnlyMode ? 0 : Random.Range(0, gameObjectsToThrow.Length);
+
+            if(itemToThrow == 0)
+            {
+                if (Random.Range(0,2)==1) 
+                    _rotation *= new Quaternion(0.707f, 0, 0, 0.707f);
+                else
+                    _rotation *= new Quaternion(0.707f, 0, 0, -0.707f);
+            }
+            
+            GameObject newThrowObject = Instantiate(gameObjectsToThrow[itemToThrow], transform.localPosition + _position, _rotation);
             NetworkServer.Spawn(newThrowObject);
             Rigidbody throwRigidbody = newThrowObject.GetComponent<Rigidbody>();
 
