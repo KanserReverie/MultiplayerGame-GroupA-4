@@ -40,7 +40,6 @@ namespace Beanbattle.ThrowObjects
 
                 if(lifeTimer < 0)
                 {
-                    print("Destroy book on time");
                     NetworkServer.Destroy(gameObject);
                     Destroy(this);
                 }
@@ -51,15 +50,6 @@ namespace Beanbattle.ThrowObjects
         {
             if(_collision.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                print("Hit from Object - " + gameObject.name);
-                // // Change to this code for the 2 player thing.
-                // int allPlayers = FindObjectsOfType<PlayerControllerFPS>().Length;
-                // if(allPlayers < 2)
-                // {
-                //     spawnPoints = FindObjectsOfType<SpawnPoint>();
-                //     _collision.gameObject.GetComponent<PlayerControllerFPS>().ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
-                // }
-
                 spawnPoints = FindObjectsOfType<SpawnPoint>();
                 _collision.gameObject.GetComponent<PlayerControllerFPS>().ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
                 

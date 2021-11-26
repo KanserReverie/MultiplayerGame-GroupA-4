@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6185948502332180733}
   - component: {fileID: -9065410099229934237}
   m_Layer: 8
-  m_Name: Book
+  m_Name: book
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,4 +173,5 @@ MonoBehaviour:
   thisRigidbody: {fileID: 6185948502332180733}
   currentPosition: {x: 0, y: 0, z: 0}
   currentRotation: {x: 0, y: 0, z: 0, w: 1}
+  isTrigger: 1
   spawnPoints: []
