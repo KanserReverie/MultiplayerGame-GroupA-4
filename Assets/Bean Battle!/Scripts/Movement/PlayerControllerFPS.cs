@@ -174,25 +174,19 @@ namespace BattleCrusaders.Movement
 
             if(moveDirection.x > 0)
             {
-                print("Move direction Right");
-
                 if(facingDirection == Direction.Left)
                 {
                     facingDirection = Direction.Right;
                     pivotPoint.localRotation = Quaternion.Euler(0, 0, 0);
-                    print("Now facing Right");
                 }
             }
 
             if(moveDirection.x < 0)
             {
-                print("Move direction Left");
-
                 if(facingDirection == Direction.Right)
                 {
                     pivotPoint.localRotation = Quaternion.Euler(0, 180, 0);
                     facingDirection = Direction.Left;
-                    print("Now facing Right");
                 }
             }
 
@@ -220,21 +214,7 @@ namespace BattleCrusaders.Movement
         {
             if(_collision.gameObject.layer == LayerMask.NameToLayer("Objects to Throw"))
             {
-                print("Hit from player");
-        
-                // Think not needed.
-                // if(!isLocalPlayer)
-                //     return;
-        
-                // // Change to this code for the 2 player thing.
-                // int allPlayers = FindObjectsOfType<PlayerControllerFPS>().Length;
-                // if(allPlayers < 2)
-                // {
-                //     spawnPoints = FindObjectsOfType<SpawnPoint>();
-                //     ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
-                // }
-                
-                spawnPoints = FindObjectsOfType<SpawnPoint>();
+               spawnPoints = FindObjectsOfType<SpawnPoint>();
                 ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
 
                 SceneTransitionManager.Instance.ChangeToNextScene();
@@ -249,14 +229,11 @@ namespace BattleCrusaders.Movement
         /// </summary>
         /// <param name="_position"> Position to move to. </param>
         /// <param name="_rotation"> New rotation of the Player. </param>
-        //[Command]
         public void ResetPosition(Vector3 _position, Quaternion _rotation)
         {
             characterController.enabled = false;
-            print("Position = " + transform.position + "Rotation = " + transform.rotation);
             gameObject.transform.position = _position;
             gameObject.transform.rotation = _rotation;
-            print("Position = " + transform.position + "Rotation = " + transform.rotation);
             characterController.enabled = true;
             moveDirection = new Vector3(0, 0, 0);
         }
