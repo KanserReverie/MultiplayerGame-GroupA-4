@@ -214,28 +214,14 @@ namespace BattleCrusaders.Movement
         {
             if(_collision.gameObject.layer == LayerMask.NameToLayer("Objects to Throw"))
             {
-               spawnPoints = FindObjectsOfType<SpawnPoint>();
-                ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
-
                 SceneTransitionManager.Instance.ChangeToNextScene();
 
-                NetworkServer.Destroy(_collision.gameObject);
-                Destroy(_collision.gameObject);
+                if(_collision.gameObject != null)
+                {
+                    NetworkServer.Destroy(_collision.gameObject);
+                    Destroy(_collision.gameObject);
+                }
             }
-        }
-
-        /// <summary>
-        /// Reset the location of this Player.
-        /// </summary>
-        /// <param name="_position"> Position to move to. </param>
-        /// <param name="_rotation"> New rotation of the Player. </param>
-        public void ResetPosition(Vector3 _position, Quaternion _rotation)
-        {
-            characterController.enabled = false;
-            gameObject.transform.position = _position;
-            gameObject.transform.rotation = _rotation;
-            characterController.enabled = true;
-            moveDirection = new Vector3(0, 0, 0);
         }
 
         /// <summary>

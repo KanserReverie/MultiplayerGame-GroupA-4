@@ -11,7 +11,7 @@ namespace Beanbattle.ThrowObjects
     /// </summary>
     public class ObjectThrown : NetworkBehaviour
     {
-        [SerializeField] private float lifeTimer = 2.1f;
+        [SerializeField] private float lifeTimer = 3.1f;
         [SerializeField] private Rigidbody thisRigidbody;
 
         [SyncVar] public Vector3 currentPosition = Vector3.zero;
@@ -50,13 +50,12 @@ namespace Beanbattle.ThrowObjects
         {
             if(_collision.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                spawnPoints = FindObjectsOfType<SpawnPoint>();
-                _collision.gameObject.GetComponent<PlayerControllerFPS>().ResetPosition(spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].gameObject.transform.rotation);
-                
                 SceneTransitionManager.Instance.ChangeToNextScene();
-                
-                NetworkServer.Destroy(gameObject);
-                Destroy(gameObject);
+                if(gameObject != null)
+                {
+                    NetworkServer.Destroy(gameObject);
+                    Destroy(gameObject);
+                }
             }
         }
 
